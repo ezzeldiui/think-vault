@@ -49,8 +49,8 @@ export default function CreateCoursePage() {
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-xs text-muted-foreground">
-          What would you like to call your course? Don't worry, you can change
-          this later.
+          What would you like to call your course? Don&apos;t worry, you can
+          change this later.
         </p>
         <Form {...form}>
           <form
