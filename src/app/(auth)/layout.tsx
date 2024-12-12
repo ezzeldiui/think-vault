@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Think Vault",
+  title: "Think Vault - Authentication",
   description: "An online LMS made to help you learn and grow",
 };
 
