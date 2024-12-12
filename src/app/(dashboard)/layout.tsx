@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Sidebar } from "./_components/sidebar";
 import { Navbar } from "./_components/navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function DashboardLayout({
         <Sidebar />
       </div>
       <main className="h-full pt-[80px] md:pl-56">{children}</main>
+      <Toaster richColors closeButton />
     </div>
   );
 }
