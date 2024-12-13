@@ -7,6 +7,7 @@ import { JSX } from "react";
 import { TitleForm } from "./_components/title_form";
 import { DescriptionForm } from "./_components/description_form";
 import { ImageForm } from "./_components/image_form";
+import { CategoryForm } from "./_components/category_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -30,6 +31,12 @@ export default async function CoursePage({
   const course = await db.course.findUnique({
     where: {
       id: courseId,
+    },
+  });
+
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
     },
   });
 
@@ -71,6 +78,14 @@ export default async function CoursePage({
           <TitleForm initialData={course} courseId={courseId} />
           <DescriptionForm initialData={course} courseId={courseId} />
           <ImageForm initialData={course} courseId={courseId} />
+          <CategoryForm
+            initialData={course}
+            courseId={courseId}
+            options={categories.map((category) => ({
+              label: category.name,
+              value: category.id,
+            }))}
+          />
         </div>
       </div>
     </div>
