@@ -13,6 +13,8 @@ export default function CoursePage({ params }: PageProps) {
     courseId: string;
   } | null>(null);
 
+//   idk why this is here
+
   useEffect(() => {
     params.then(setResolvedParams);
   }, [params]);
