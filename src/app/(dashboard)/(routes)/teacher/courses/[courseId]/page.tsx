@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { JSX } from "react";
 import { TitleForm } from "./_components/title_form";
 import { DescriptionForm } from "./_components/description_form";
+import { ImageForm } from "./_components/image_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -69,6 +70,7 @@ export default async function CoursePage({
           </div>
           <TitleForm initialData={course} courseId={courseId} />
           <DescriptionForm initialData={course} courseId={courseId} />
+          <ImageForm initialData={course} courseId={courseId} />
         </div>
       </div>
     </div>

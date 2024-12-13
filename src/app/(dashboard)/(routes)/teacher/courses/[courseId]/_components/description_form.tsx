@@ -44,7 +44,10 @@ export function DescriptionForm({
 
   const form = useForm<z.infer<typeof descriptionFormSchema>>({
     resolver: zodResolver(descriptionFormSchema),
-    defaultValues: initialData === null ? { description: "" } : { description: initialData.description ?? "" },
+    defaultValues:
+      initialData === null
+        ? { description: "" }
+        : { description: initialData.description ?? "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
