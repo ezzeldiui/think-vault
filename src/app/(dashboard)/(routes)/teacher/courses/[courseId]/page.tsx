@@ -1,10 +1,13 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { JSX } from "react";
 
-export default async function CoursePage(
-  params: Promise<{ courseId: string }>,
-) {
+export default async function CoursePage({
+  params,
+}: {
+  params: { courseId: string };
+}): Promise<JSX.Element> {
   const { userId } = await auth();
 
   const id = (await params).courseId;
@@ -37,6 +40,6 @@ export default async function CoursePage(
   const completionText = `${completedFields}/${totalFields} fields completed`;
 
   // just ignore this
-  
+
   return <div>Course Id Page {id}</div>;
 }
