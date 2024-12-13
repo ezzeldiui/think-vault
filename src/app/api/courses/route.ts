@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const { userId } = await auth();
-    const { title } = await request.json();
+    const { title, price } = await request.json();
 
     if (!userId) {
       return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
@@ -17,6 +17,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       data: {
         userId,
         title,
+        price,
       },
     });
 
