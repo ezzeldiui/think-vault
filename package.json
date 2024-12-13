@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "prisma": "^6.0.1",
     "@clerk/nextjs": "^6.9.0",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^6.0.1",
@@ -41,7 +43,6 @@
   },
   "devDependencies": {
     "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.9",
-    "prisma": "^6.0.1"
+    "prettier-plugin-tailwindcss": "^0.6.9"
   }
 }
