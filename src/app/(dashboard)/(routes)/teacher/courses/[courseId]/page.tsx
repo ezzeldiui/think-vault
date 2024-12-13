@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 import { JSX } from "react";
+import { TitleForm } from "./_components/title_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -65,6 +66,7 @@ export default async function CoursePage({
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customise your course</h2>
           </div>
+          <TitleForm initialData={course} courseId={courseId} />
         </div>
       </div>
     </div>
