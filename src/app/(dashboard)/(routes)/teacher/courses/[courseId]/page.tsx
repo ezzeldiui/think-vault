@@ -1,13 +1,19 @@
 import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { LayoutDashboard } from "lucide-react";
+import {
+  CircleDollarSign,
+  Icon,
+  LayoutDashboard,
+  ListChecks,
+} from "lucide-react";
 import { redirect } from "next/navigation";
 import { JSX } from "react";
 import { TitleForm } from "./_components/title_form";
 import { DescriptionForm } from "./_components/description_form";
 import { ImageForm } from "./_components/image_form";
 import { CategoryForm } from "./_components/category_form";
+import { PriceForm } from "./_components/price_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -73,7 +79,7 @@ export default async function CoursePage({
         <div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
-            <h2 className="text-xl">Customise your course</h2>
+            <h2 className="truncate text-xl">Customise your course</h2>
           </div>
           <TitleForm initialData={course} courseId={courseId} />
           <DescriptionForm initialData={course} courseId={courseId} />
@@ -86,6 +92,23 @@ export default async function CoursePage({
               value: category.id,
             }))}
           />
+        </div>
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={ListChecks} />
+              <h2 className="truncate text-xl">Course Chapters</h2>
+            </div>
+
+            <div>TODO: Chapter</div>
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={CircleDollarSign} />
+              <h2 className="truncate text-xl">Sell your course</h2>
+            </div>
+            <PriceForm initialData={course} courseId={courseId} />
+          </div>
         </div>
       </div>
     </div>
