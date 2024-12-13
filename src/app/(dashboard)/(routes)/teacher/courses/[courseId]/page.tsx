@@ -5,6 +5,7 @@ import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 import { JSX } from "react";
 import { TitleForm } from "./_components/title_form";
+import { DescriptionForm } from "./_components/description_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -67,6 +68,7 @@ export default async function CoursePage({
             <h2 className="text-xl">Customise your course</h2>
           </div>
           <TitleForm initialData={course} courseId={courseId} />
+          <DescriptionForm initialData={course} courseId={courseId} />
         </div>
       </div>
     </div>
