@@ -38,6 +38,6 @@ export default async function CoursePage({
 
   // just ignore this
 
-  const { courseId } = params;
+  const { courseId } = await params;
   return <div>Course Id Page {courseId}</div>;
 }
