@@ -2,12 +2,12 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export default async function CoursePage({
-  params,
-}: {
-  params: { courseId: string };
-}): Promise<{ courseId: string }> {
+export default async function CoursePage(
+  params: Promise<{ courseId: string }>,
+) {
   const { userId } = await auth();
+
+  const id = (await params).courseId;
 
   if (!userId) {
     return redirect("/");
@@ -15,7 +15,7 @@ export default async function CoursePage({
 
   const course = await db.course.findUnique({
     where: {
-      id: params.courseId,
+      id: id,
     },
   });
 
@@ -37,7 +37,6 @@ export default async function CoursePage({
   const completionText = `${completedFields}/${totalFields} fields completed`;
 
   // just ignore this
-
-  const { courseId } = await params;
-  return <div>Course Id Page {courseId}</div>;
+  
+  return <div>Course Id Page {id}</div>;
 }
