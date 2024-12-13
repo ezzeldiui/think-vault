@@ -21,6 +21,7 @@ export function TitleInfoModal() {
           <CircleHelp className="size-5 text-muted-foreground" />
         </Button>
       </AlertDialogTrigger>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Course Creation Requirement?</AlertDialogTitle>
@@ -32,10 +33,10 @@ export function TitleInfoModal() {
           </AlertDialogDescription>
 
           <div>
-            <Alert>
+            <Alert variant="warning">
               <TriangleAlert className="flex size-4 h-1/2" />
               <AlertTitle>Heads up!</AlertTitle>
-              <AlertDescription className="text-xs text-muted-foreground">
+              <AlertDescription className="text-xs">
                 Write gibberish and you will be banned from creating courses
               </AlertDescription>
             </Alert>
