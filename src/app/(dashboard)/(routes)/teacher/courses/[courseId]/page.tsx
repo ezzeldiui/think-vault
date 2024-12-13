@@ -36,6 +36,8 @@ export default async function CoursePage({
 
   const completionText = `${completedFields}/${totalFields} fields completed`;
 
+  // just ignore this
+
   const { courseId } = params;
   return <div>Course Id Page {courseId}</div>;
 }
