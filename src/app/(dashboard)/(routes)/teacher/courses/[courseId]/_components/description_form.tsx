@@ -24,7 +24,7 @@ import { toast } from "sonner";
 
 type DescriptionFormProps = {
   initialData: {
-    description: string;
+    description: string | null;
   };
   courseId: string;
 };
@@ -44,7 +44,7 @@ export function DescriptionForm({
 
   const form = useForm<z.infer<typeof descriptionFormSchema>>({
     resolver: zodResolver(descriptionFormSchema),
-    defaultValues: initialData,
+    defaultValues: initialData === null ? { description: "" } : { description: initialData.description ?? "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
