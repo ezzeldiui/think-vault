@@ -1,23 +1,22 @@
-import { GetServerSideProps } from 'next';
+import { useEffect, useState } from "react";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     courseId: string;
-  };
+  }>;
 }
 
-export default function CourseIdPage({ params }: PageProps) {
-  const { courseId } = params;
+export default function CoursePage({ params }: PageProps) {
+  const [resolvedParams, setResolvedParams] = useState<{ courseId: string } | null>(null);
+
+  useEffect(() => {
+    params.then(setResolvedParams);
+  }, [params]);
+
+  if (!resolvedParams) {
+    return <div>Loading...</div>;
+  }
+
+  const { courseId } = resolvedParams;
   return <div>Course Id Page {courseId}</div>;
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { courseId } = context.params as { courseId: string };
-  return {
-    props: {
-      params: {
-        courseId,
-      },
-    },
-  };
-};
