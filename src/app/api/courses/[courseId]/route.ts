@@ -4,10 +4,6 @@ import { NextResponse } from "next/server";
 
 type Params = Promise<{ courseId: string }>;
 
-export async function generateMetadata({ params }: { params: Params }) {
-  const { courseId } = await params;
-}
-
 export async function PATCH(
   request: Request,
   { params }: { params: Params },
