@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 interface PageProps {
@@ -7,7 +9,9 @@ interface PageProps {
 }
 
 export default function CoursePage({ params }: PageProps) {
-  const [resolvedParams, setResolvedParams] = useState<{ courseId: string } | null>(null);
+  const [resolvedParams, setResolvedParams] = useState<{
+    courseId: string;
+  } | null>(null);
 
   useEffect(() => {
     params.then(setResolvedParams);
