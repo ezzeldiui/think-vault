@@ -1,32 +1,34 @@
-"use client";
-
-import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ChevronsUpDown, Check } from "lucide-react";
 import {
   Command,
+  CommandInput,
+  CommandList,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
-  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
-  PopoverContent,
   PopoverTrigger,
+  PopoverContent,
 } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-type ComboboxProps = {
-  options: { label: string; value: string }[];
-  value?: string;
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface ComboBoxProps {
+  options: Option[];
+  value: string;
   onChange: (value: string) => void;
-};
+}
 
-export function Combobox({ options, value, onChange }: ComboboxProps) {
-  const [open, setOpen] = React.useState(false);
+export function Combobox({ options, value, onChange }: ComboBoxProps) {
+  const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,11 +37,11 @@ export function Combobox({ options, value, onChange }: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-[200px] justify-between"
         >
           {value
             ? options.find((option) => option.value === value)?.label
-            : "Select option..."}
+            : "Select an option"}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -74,5 +76,3 @@ export function Combobox({ options, value, onChange }: ComboboxProps) {
     </Popover>
   );
 }
-
-// Path: src/components/ui/command.tsx
