@@ -21,6 +21,7 @@ import { courseFormSchema } from "@/schemas/courseFormSchema";
 import Link from "next/link";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
+import { TitleInfoModal } from "@/app/(dashboard)/_components/form/modal/title-info";
 
 export default function CreateCoursePage() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function CreateCoursePage() {
   const onSubmit = async (values: z.infer<typeof courseFormSchema>) => {
     try {
       const response = await axios.post("/api/courses", values);
+      toast.success("Course was created successfully.");
       router.push(`/teacher/courses/${response.data.id}`);
     } catch {
       toast.error("An error occurred. Please try again.");
@@ -64,12 +66,16 @@ export default function CreateCoursePage() {
                 <FormItem>
                   <FormLabel htmlFor="title">Course Title</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      id="title"
-                      placeholder="e.g. 'Introduction to JavaScript'"
-                      {...field}
-                    />
+                    <div className="flex gap-x-3">
+                      <Input
+                        disabled={isSubmitting}
+                        id="title"
+                        placeholder="e.g. 'Introduction to JavaScript'"
+                        {...field}
+                      />
+
+                      <TitleInfoModal />
+                    </div>
                   </FormControl>
                   <FormMessage>
                     {form.formState.errors.title?.message}
