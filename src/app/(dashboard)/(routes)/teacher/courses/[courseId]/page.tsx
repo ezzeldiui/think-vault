@@ -1,5 +1,7 @@
+import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 import { JSX } from "react";
 
@@ -43,9 +45,28 @@ export default async function CoursePage({
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
 
-  const completionText = `${completedFields}/${totalFields} fields completed`;
+  const completionText = `(${completedFields}/${totalFields})`;
 
-  // just ignore this
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-y-2">
+          <h1 className="text-2xl font-medium">Course setup</h1>
 
-  return <div>Course Id Page {courseId}</div>;
+          <span className="text-xs text-muted-foreground">
+            Complete all fields to publish your course {completionText}
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={LayoutDashboard} />
+            <h2 className="text-xl">Customise your course</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
