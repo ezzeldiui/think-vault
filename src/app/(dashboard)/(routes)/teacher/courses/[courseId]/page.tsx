@@ -6,7 +6,7 @@ export default async function CoursePage({
   params,
 }: {
   params: { courseId: string };
-}): Promise<any> {
+}): Promise<{ courseId: string }> {
   const { userId } = await auth();
 
   if (!userId) {
