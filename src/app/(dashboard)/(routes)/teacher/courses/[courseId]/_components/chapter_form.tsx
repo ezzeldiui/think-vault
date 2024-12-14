@@ -18,10 +18,11 @@ import { useToggle } from "@/hooks/useToggle";
 import { cn } from "@/lib/utils";
 import { chapterFormSchema } from "@/schemas/chapterFormSchema";
 import { Chapter, Course } from "@prisma/client";
-import { Loader2, PlusCircle } from "lucide-react";
+import { Loader, Loader2, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { ChapterList } from "./chapter-list";
 
 type ChaptersFormProps = {
   initialData: Course & { chapters: Chapter[] };
@@ -59,8 +60,32 @@ export function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
     }
   };
 
+  const onReorder = async (updateData: { id: string; position: number }[]) => {
+    try {
+      setIsUpdating(true);
+      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updateData,
+      });
+      toast.success("Chapters reordered successfully.");
+      router.refresh();
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const onEdit = async (id: string) => {
+    router.push(`/dashboard/teacher/courses/${courseId}/chapters/${id}`);
+  };
+
   return (
-    <div className="group mt-6 rounded-md border bg-slate-100 p-4">
+    <div className="group relative mt-6 rounded-md border bg-slate-100 p-4">
+      {isUpdating && (
+        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-md bg-slate-500/20">
+          <Loader className="size-6 animate-spin text-sky-700" />
+        </div>
+      )}
       <div className="flex items-center justify-between font-medium">
         Course Chapters
         <Button
@@ -123,7 +148,11 @@ export function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
           )}
         >
           {!initialData.chapters.length && "No chapters"}
-          {/* TODO: Add a list of chapter */}
+          <ChapterList
+            onEdit={onEdit}
+            onReorder={onReorder}
+            items={initialData.chapters || []}
+          />
         </div>
       )}
 
