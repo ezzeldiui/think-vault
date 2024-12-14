@@ -34,6 +34,7 @@ const PaypalButton: React.FC<PaypalButtonProps> = ({ amount, onSuccess }) => {
         onApprove={(data, actions) => {
           return actions?.order?.capture().then((details) => {
             onSuccess(details);
+            // Lol
           });
         }}
       />
