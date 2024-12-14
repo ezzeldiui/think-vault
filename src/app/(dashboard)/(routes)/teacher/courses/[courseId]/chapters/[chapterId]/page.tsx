@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { ChapterDescriptionForm } from "./_components/chapter_description_form";
 import { ChapterTitleForm } from "./_components/chapter_title_form";
 import { ChapterAccessForm } from "./_components/chapter_access_form";
+import { ChapterVideoForm } from "./_components/chapter_video_form";
 
 type Params = Promise<{ chapterId: string; courseId: string }>;
 
@@ -102,6 +103,11 @@ export default async function ChapterId({ params }: { params: Params }) {
             <IconBadge icon={Video} />
             <h2 className="text-xl">Video Preview</h2>
           </div>
+          <ChapterVideoForm
+            initialData={chapter}
+            courseId={courseId}
+            chapterId={chapterId}
+          />
         </div>
       </div>
     </div>
