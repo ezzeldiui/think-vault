@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import {
   CircleDollarSign,
+  File,
   Icon,
   LayoutDashboard,
   ListChecks,
@@ -14,6 +15,7 @@ import { DescriptionForm } from "./_components/description_form";
 import { ImageForm } from "./_components/image_form";
 import { CategoryForm } from "./_components/category_form";
 import { PriceForm } from "./_components/price_form";
+import { AttachmentForm } from "./_components/attachment_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -37,6 +39,13 @@ export default async function CoursePage({
   const course = await db.course.findUnique({
     where: {
       id: courseId,
+    },
+    include: {
+      attachments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });
 
@@ -108,6 +117,13 @@ export default async function CoursePage({
               <h2 className="truncate text-xl">Sell your course</h2>
             </div>
             <PriceForm initialData={course} courseId={courseId} />
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={File} />
+              <h2 className="truncate text-xl">Resources & Attachments</h2>
+            </div>
+            <AttachmentForm initialData={course} courseId={courseId} />
           </div>
         </div>
       </div>
