@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ChapterDescriptionForm } from "./_components/chapter_description_form";
 import { ChapterTitleForm } from "./_components/chapter_title_form";
 
 type Params = Promise<{ chapterId: string; courseId: string }>;
@@ -71,6 +72,11 @@ export default async function ChapterId({ params }: { params: Params }) {
               <h2 className="text-xl">Customize your chapter</h2>
             </div>
             <ChapterTitleForm
+              initialData={chapter}
+              courseId={courseId}
+              chapterId={chapterId}
+            />
+            <ChapterDescriptionForm
               initialData={chapter}
               courseId={courseId}
               chapterId={chapterId}
