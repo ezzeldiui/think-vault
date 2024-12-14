@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import PaypalButton from "@/components/paypal-button";
 import { UserButton } from "@clerk/nextjs";
@@ -10,10 +10,7 @@ export default function Home() {
   return (
     <>
       <UserButton />
-      <PaypalButton
-        amount={"99.99"}
-        onSuccess={handleSuccess}
-      />
+      <PaypalButton amount={"0.0001"} onSuccess={handleSuccess} />
     </>
   );
 }
