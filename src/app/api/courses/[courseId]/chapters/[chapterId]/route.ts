@@ -10,6 +10,91 @@ const muxClient = new Mux({
   tokenSecret: process.env.MUX_TOKEN_SECRET!,
 });
 
+export async function DELETE(
+  request: Request,
+  { params }: { params: Params },
+): Promise<NextResponse> {
+  try {
+    const { userId } = await auth();
+
+    const { courseId, chapterId } = await params;
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const courseOwner = await db.course.findUnique({
+      where: {
+        id: courseId,
+        userId,
+      },
+    });
+
+    if (!courseOwner) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const chapter = await db.chapter.findUnique({
+      where: {
+        id: chapterId,
+        courseId,
+      },
+    });
+
+    if (!chapter) {
+      return new NextResponse("Chapter not found", { status: 404 });
+    }
+
+    if (chapter.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          chapterId,
+        },
+      });
+
+      if (existingMuxData) {
+        await muxClient.video.assets.delete(existingMuxData.assetId);
+        await db.muxData.delete({
+          where: {
+            id: existingMuxData.id,
+          },
+        });
+      }
+    }
+
+    const deletedChapter = await db.chapter.delete({
+      where: {
+        id: chapterId,
+      },
+    });
+
+    const publishedChaptersInCourse = await db.chapter.findMany({
+      where: {
+        courseId,
+        isPublished: true,
+      },
+    });
+
+    if (!publishedChaptersInCourse.length) {
+      await db.course.update({
+        where: {
+          id: courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
+
+    return NextResponse.json(deletedChapter);
+  } catch (error) {
+    console.error("[CHAPTER_ID_DELETE]", error);
+    return new NextResponse(`An error occurred. Please try again. `, {
+      status: 500,
+    });
+  }
+}
+
 export async function PATCH(
   request: Request,
   { params }: { params: Params },
