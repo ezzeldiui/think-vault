@@ -16,6 +16,7 @@ import { ImageForm } from "./_components/image_form";
 import { CategoryForm } from "./_components/category_form";
 import { PriceForm } from "./_components/price_form";
 import { AttachmentForm } from "./_components/attachment_form";
+import { ChaptersForm } from "./_components/chapter_form";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -39,8 +40,14 @@ export default async function CoursePage({
   const course = await db.course.findUnique({
     where: {
       id: courseId,
+      userId,
     },
     include: {
+      chapters: {
+        orderBy: {
+          position: "asc",
+        },
+      },
       attachments: {
         orderBy: {
           createdAt: "desc",
@@ -65,6 +72,7 @@ export default async function CoursePage({
     course.imageUrl,
     course.price,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;
@@ -109,7 +117,7 @@ export default async function CoursePage({
               <h2 className="truncate text-xl">Course Chapters</h2>
             </div>
 
-            <div>TODO: Chapter</div>
+            <ChaptersForm initialData={course} courseId={courseId} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">
