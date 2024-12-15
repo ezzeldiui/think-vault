@@ -5,13 +5,11 @@ import { getCourses } from "@/actions/get-courses";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CoursesList } from "@/components/courses-list";
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
 
 type SearchPageProps = {
   searchParams: {
-    title: string;
-    categoryId: string;
+    title?: string;
+    categoryId?: string;
   };
 };
 
@@ -34,10 +32,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     userId,
     ...sParams,
   });
-
-  const handleClick = () => {
-    console.log("Refresh clicked");
-  };
 
   return (
     <>
