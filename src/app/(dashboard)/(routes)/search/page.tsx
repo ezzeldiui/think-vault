@@ -7,10 +7,10 @@ import { redirect } from "next/navigation";
 import { CoursesList } from "@/components/courses-list";
 
 type SearchPageProps = {
-  searchParams: {
+  searchParams: Promise<{
     title?: string;
     categoryId?: string;
-  };
+  }>;
 };
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
@@ -26,11 +26,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     },
   });
 
-  const sParams = await searchParams;
+  const { title, categoryId } = await searchParams;
 
   const course = await getCourses({
     userId,
-    ...sParams,
+    title,
+    categoryId,
   });
 
   return (
@@ -47,5 +48,3 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     </>
   );
 }
-
-// add a dumbby dat
