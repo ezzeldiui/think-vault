@@ -21,4 +21,4 @@ export default async function SearchPage() {
   );
 }
 
-// add a dumbby data
+// add a dumbby dat
