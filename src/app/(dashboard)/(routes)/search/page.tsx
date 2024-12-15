@@ -1,7 +1,16 @@
-export default function SearchPage() {
-    return (
-        <div>
-        <h1>Search</h1>
-        </div>
-    );
+import { db } from "@/lib/db";
+import { Categories } from "./_components/categories";
+
+export default async function SearchPage() {
+  const category = await db.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  return (
+    <div className="p-6">
+      <Categories items={category} />
+    </div>
+  );
 }
