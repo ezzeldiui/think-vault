@@ -29,9 +29,9 @@ export async function PATCH(
     });
 
     return NextResponse.json(course, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("[COURSE_ID]", error);
-    return new NextResponse("An error occurred. Please try again.", {
+    return new NextResponse(`${error.message}`, {
       status: 500,
     });
   }

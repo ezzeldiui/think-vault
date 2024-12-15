@@ -54,8 +54,8 @@ export function PriceForm({ initialData, courseId }: PriceFormProps) {
       toast.success("Course price updated successfully.");
       toggleEditing();
       router.refresh();
-    } catch (error) {
-      toast.error("An error occurred. Please try again.");
+    } catch (error: any) {
+      toast.error(`${error.message}`);
     }
   };
 

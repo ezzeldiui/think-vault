@@ -4,6 +4,7 @@ import { parseAsString, useQueryState } from "nuqs";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Suspense } from "react";
+import { Button } from "./ui/button";
 
 export function SearchInput() {
   return (
