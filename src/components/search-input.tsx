@@ -1,50 +1,25 @@
-import qs from "query-string";
+"use client";
 
-import { useEffect } from "react";
+import { parseAsString, useQueryState } from "nuqs";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
-import { useState } from "react";
-import { useDebounce } from "@/hooks/useDebounce";
-import { Suspense } from "react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 export function SearchInput() {
-  return (
-    <Suspense fallback={null}>
-      <SearchInputField />
-    </Suspense>
+  const [title, setTitle] = useQueryState(
+    "title",
+    parseAsString
+      .withDefault("")
+      .withOptions({ clearOnDefault: true, throttleMs: 500 }),
   );
-}
 
-function SearchInputField() {
-  const [value, setValue] = useState("");
-  const debouncedValue = useDebounce(value);
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const currentCategoryId = searchParams.get("category");
-
-  useEffect(() => {
-    const url = qs.stringifyUrl({
-      url: pathname,
-      query: {
-        category: currentCategoryId,
-        title: debouncedValue,
-      },
-    });
-
-    router.push(url);
-  }, [debouncedValue, currentCategoryId, pathname, router]);
+  const [category, setCategory] = useQueryState("category", parseAsString);
 
   return (
     <div className="relative">
       <Search className="absolute left-3 top-3 size-4 text-slate-600" />
-
       <Input
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
+        onChange={(e) => setTitle(e.target.value)}
+        value={title}
         className="w-full bg-slate-100 pl-9 focus-visible:ring-slate-200 md:w-[300px]"
         placeholder="Search"
       />

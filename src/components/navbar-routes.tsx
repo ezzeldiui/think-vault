@@ -23,26 +23,6 @@ export function NavbarRoutes() {
       )}
 
       <div className="ml-auto flex gap-x-2">
-        {isTeacherPage || isPlayerPage ? (
-          <Link href="/">
-            <Button size="sm" variant="ghost">
-              <LogOut className="size-4" />
-              Exit
-            </Button>
-          </Link>
-        ) : (
-          <Link href="/teacher/courses">
-            <Button size="sm" variant="ghost">
-              Teacher mode
-            </Button>
-          </Link>
-        )}
-        {isSearchPage && (
-          <div className="hidden md:block">
-            <SearchInput />
-          </div>
-        )}
-
         <div className="ml-auto flex gap-x-2">
           {isTeacherPage || isPlayerPage ? (
             <Link href="/">
