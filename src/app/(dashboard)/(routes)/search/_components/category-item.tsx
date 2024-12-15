@@ -1,9 +1,8 @@
 "use client";
 
-import qs from "query-string";
 import { Button } from "@/components/ui/button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useQueryStates, parseAsString } from "nuqs";
 import { Suspense } from "react";
 
 type CategoryItemProps = {
@@ -24,29 +23,20 @@ export function CategoryItem({ item }: CategoryItemProps) {
 type CategoryItemButtonProps = CategoryItemProps;
 
 function CategoryItemButton({ item }: CategoryItemButtonProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [{ categoryId, title }, setQuery] = useQueryStates({
+    categoryId: parseAsString,
+    title: parseAsString,
+  });
 
-  const currentCategoryId = searchParams.get("category");
-  const currentTitle = searchParams.get("title");
-
-  const isSelected = currentCategoryId === item.value;
+  const isSelected = categoryId === item.value;
 
   const onClick = () => {
-    const url = qs.stringifyUrl(
-      {
-        url: pathname,
-        query: {
-          title: currentTitle,
-          category: isSelected ? null : item.value,
-        },
-      },
-      { skipNull: true, skipEmptyString: true },
-    );
-
-    router.push(url);
+    setQuery({
+      categoryId: isSelected ? null : item.value,
+      title,
+    });
   };
+
   return (
     <Button
       onClick={onClick}
