@@ -3,8 +3,17 @@
 import { parseAsString, useQueryState } from "nuqs";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
+import { Suspense } from "react";
 
 export function SearchInput() {
+  return (
+    <Suspense fallback={<div>Loading search input...</div>}>
+      <SearchInputField />
+    </Suspense>
+  );
+}
+
+function SearchInputField() {
   const [title, setTitle] = useQueryState(
     "title",
     parseAsString
