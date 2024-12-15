@@ -4,6 +4,7 @@ import qs from "query-string";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
 
 type CategoryItemProps = {
   item: {
@@ -13,6 +14,16 @@ type CategoryItemProps = {
 };
 
 export function CategoryItem({ item }: CategoryItemProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CategoryItemButton item={item} />
+    </Suspense>
+  );
+}
+
+type CategoryItemButtonProps = CategoryItemProps;
+
+function CategoryItemButton({ item }: CategoryItemButtonProps) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,7 +47,6 @@ export function CategoryItem({ item }: CategoryItemProps) {
 
     router.push(url);
   };
-
   return (
     <Button
       onClick={onClick}
