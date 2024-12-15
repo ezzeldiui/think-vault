@@ -82,6 +82,7 @@ export async function DELETE(
         },
         data: {
           isPublished: false,
+          isVerified: false,
         },
       });
     }

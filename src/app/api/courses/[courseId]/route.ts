@@ -21,6 +21,7 @@ export async function PATCH(
       where: {
         id: courseId,
         userId,
+        isVerified: false,
       },
       data: {
         ...values,

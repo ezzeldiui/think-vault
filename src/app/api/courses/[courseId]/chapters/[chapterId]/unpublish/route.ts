@@ -51,6 +51,7 @@ export async function PATCH(
         },
         data: {
           isPublished: false,
+          isVerified: false,
         },
       });
     }
