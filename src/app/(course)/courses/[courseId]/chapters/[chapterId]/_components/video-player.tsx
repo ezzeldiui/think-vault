@@ -60,7 +60,7 @@ export function VideoPlayer({
           </p>
         </div>
       )}
-      Video Player
     </div>
   );
 }
+``

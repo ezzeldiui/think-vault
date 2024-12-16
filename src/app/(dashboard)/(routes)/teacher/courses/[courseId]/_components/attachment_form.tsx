@@ -82,7 +82,7 @@ export function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
             </p>
           )}
           {initialData.attachments.length > 0 && (
-            <div className="space-y-2">
+            <div className="mt-4 space-y-2">
               {initialData.attachments.map((attachment) => (
                 <div
                   key={attachment.id}
